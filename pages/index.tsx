@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 
 import { fetcher } from '@/lib/api';
 import { IINfo } from '@/lib/types/notion';
@@ -7,8 +7,23 @@ import { Page } from '@/components/Page';
 import { Loader } from '@/components/ui/Loader';
 import { ErrorPage } from '@/components/ErrorPage';
 
-const Home: NextPage = () => {
-  const { data, error } = useSWR<IINfo>('/api/info', fetcher);
+export const getStaticProps: GetStaticProps = async () =>{
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/info`);
+  const data = await response.json();
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
+interface IProps {
+  data: IINfo;
+}
+
+const Home: NextPage<IProps> = ({ data: initialData }) => {
+  const { data, error } = useSWR<IINfo>('/api/info', fetcher, { fallbackData: initialData });
 
   if (error) return <ErrorPage />;
   if (!data) return <Loader className="min-h-full" />;
