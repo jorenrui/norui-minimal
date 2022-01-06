@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import type { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
+import { HiExternalLink } from 'react-icons/hi';
 
 import { fetcher } from '@/lib/api';
 import { IINfo } from '@/lib/types/notion';
@@ -30,6 +31,8 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
   if (error) return <ErrorPage />;
   if (!data) return <Loader className="min-h-full" />;
 
+  console.log(data.links);
+
   return (
     <Page className="flex items-center justify-center">
       <div className="flex gap-4">
@@ -41,6 +44,24 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
           <h1 className="my-2 text-5xl font-bold font-serif text-gray-900 whitespace-nowrap">{formatRichText(data.name)}</h1>
           <p className="my-1 text-sm text-gray-700">{formatRichText(data.headline)}</p>
           <p className="my-4 text-base text-gray-900">{formatRichText(data.description)}</p>
+
+          {Object.keys(data.links || {}).length > 0 && (
+            <ul className="mt-4 flex gap-4">
+              {Object.keys(data.links).map((link_description) => {
+                const content = data.links[link_description][0];
+                if (!content) return;
+
+                return (
+                  <li key={data.links[link_description][0].href}>
+                    <a target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center underline underline-offset-2 decoration-2 text-gray-700 cursor-pointer">
+                      {link_description}
+                      <HiExternalLink className="ml-1 h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
     </Page>

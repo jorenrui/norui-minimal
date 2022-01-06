@@ -18,13 +18,24 @@ export default async function handler(
 
   const data = response.results.reduce((result, record: any) => {
     const field: string = record.properties.ID.rich_text[0]?.plain_text.trim() || '';
+    const name: string = record.properties.Name.title[0]?.plain_text.trim() || '';
     const types: string[] = record.properties.Type.multi_select?.map((item: IOption) => item.name) || ['rich text'];
+
+    if (field === 'links') {
+      return ({
+        ...result,
+        [field]: {
+          ...(result[field] || {}),
+          [name]: record.properties.Value.rich_text,
+        },
+      });
+    }
 
     return ({
       ...result,
       [field]: types.includes('file')
         ? record.properties.File.files[0].file.url
-        : record.properties.Value.rich_text || '',
+        : record.properties.Value.rich_text,
     });
   }, {} as IINfo);
 

@@ -31,7 +31,7 @@ export function formatRichText(text: IRichText) {
         ? textColor['gray']
         : textColor[item.annotations.color]
 
-      content = <a href={item.href} target="_blank" rel="noopener noreferrer" className={cn('underline', color)}>{content}</a>;
+      content = <a href={item.href} target="_blank" rel="noopener noreferrer" className={cn('underline underline-offset-2 cursor-pointer', color)}>{content}</a>;
     }
 
     return <React.Fragment key={item.text.content}>{content}</React.Fragment>;
