@@ -31,8 +31,6 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
   if (error) return <ErrorPage />;
   if (!data) return <Loader className="min-h-full" />;
 
-  console.log(data.links);
-
   return (
     <Page className="flex items-center justify-center">
       <div className="p-4 flex flex-col justify-center gap-4 lg:flex-row">
