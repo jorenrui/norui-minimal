@@ -34,6 +34,10 @@ export function formatRichText(text: IRichText) {
       content = <a href={item.href} target="_blank" rel="noopener noreferrer" className={cn('underline underline-offset-2 cursor-pointer', color)}>{content}</a>;
     }
 
+    if (!item.annotations.bold && !item.annotations.italic && !item.annotations.strikethrough && !item.annotations.underline && !item.annotations.code && !item.href?.length) {
+      content = <span className={textColor[item.annotations.color]}>{content}</span>;
+    }
+
     return <React.Fragment key={item.text.content}>{content}</React.Fragment>;
   })
 
