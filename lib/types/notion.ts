@@ -36,4 +36,5 @@ export interface IINfo {
   description: IRichText;
   links: { [key: string]: IRichText };
   profile_picture: string;
+  copyright: IRichText;
 }

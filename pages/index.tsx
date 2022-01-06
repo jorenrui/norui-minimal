@@ -50,8 +50,8 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
                 if (!content) return;
 
                 return (
-                  <li key={data.links[link_description][0].href}>
-                    <a target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center underline underline-offset-2 decoration-2 text-gray-700 cursor-pointer">
+                  <li key={content.href}>
+                    <a href={link_description.toLowerCase() === 'email' ? `mailto:${content.plain_text}` : content.href || '#'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center underline underline-offset-2 decoration-2 text-gray-700 cursor-pointer">
                       {link_description}
                       <HiExternalLink className="ml-1 h-4 w-4" aria-hidden="true" />
                     </a>
@@ -60,6 +60,10 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
               })}
             </ul>
           )}
+
+          <p className="mt-12 text-sm text-gray-700">
+            {formatRichText(data.copyright)}
+          </p>
         </div>
       </div>
     </Page>
