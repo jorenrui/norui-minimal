@@ -3,26 +3,33 @@ import type { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import { HiExternalLink } from 'react-icons/hi';
 
-import { fetcher } from '@/lib/api';
+import { fetcher, getInfo } from '@/lib/api';
 import { IINfo } from '@/lib/types/notion';
 import { formatRichText } from '@/lib/helper/formatRichText';
 import { Page } from '@/components/Page';
 import { Loader } from '@/components/ui/Loader';
 import { ErrorPage } from '@/components/ErrorPage';
 
-export const getStaticProps: GetStaticProps = async () =>{
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/info`);
-  const data = await response.json();
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const data = await getInfo();
+
+    return {
+      props: {
+        data,
+      },
+    }
+  } catch (error) {
+    console.log(error);
+  }
 
   return {
-    props: {
-      data,
-    },
+    props: {},
   }
 }
 
 interface IProps {
-  data: IINfo;
+  data?: IINfo;
 }
 
 const Home: NextPage<IProps> = ({ data: initialData }) => {
