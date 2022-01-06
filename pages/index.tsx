@@ -35,18 +35,18 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
 
   return (
     <Page className="flex items-center justify-center">
-      <div className="flex gap-4">
+      <div className="p-4 flex flex-col justify-center gap-4 lg:flex-row">
         <div className="flex-1">
           <Image alt={`${data.name}'s profile picture`} src={data.profile_picture} className="image grayscale" height={400} width={300} objectFit="cover" />
         </div>
 
         <div className="flex-1 max-w-lg my-auto">
-          <h1 className="my-2 text-5xl font-bold font-serif text-gray-900 whitespace-nowrap">{formatRichText(data.name)}</h1>
+          <h1 className="my-2 text-5xl font-bold font-serif text-gray-900">{formatRichText(data.name)}</h1>
           <p className="my-1 text-sm text-gray-700">{formatRichText(data.headline)}</p>
           <p className="my-4 text-base text-gray-900">{formatRichText(data.description)}</p>
 
           {Object.keys(data.links || {}).length > 0 && (
-            <ul className="mt-4 flex gap-4">
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
               {Object.keys(data.links).map((link_description) => {
                 const content = data.links[link_description][0];
                 if (!content) return;
