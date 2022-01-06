@@ -1,6 +1,9 @@
 # Minimal Norui
 
+![](public/img/demo-site-screenshot.png)
+
 A minimal norui portfolio example built with NextJS and powered by Notion 🚀.
+
 
 ## Links
 - [Demo Site](https://minimal-norui.vercel.app/)
