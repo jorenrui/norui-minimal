@@ -4,12 +4,6 @@
 
 A minimal norui portfolio example built with NextJS and powered by Notion 🚀.
 
-## Deploy your own 🚀
-
-Deploy the example using [Vercel](https://vercel.com/):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjorenrui%2Fnorui-minimal&env=NEXT_PUBLIC_BASE_URL,NEXT_PUBLIC_SITE_NAME,NEXT_PUBLIC_SITE_DESCRIPTION,NOTION_API,NOTION_DATABASE_ID&envDescription=API%20Keys%20needed%20for%20the%20application.&envLink=https%3A%2F%2Fjorenrui.notion.site%2FMinimal-Norui-168e69403f624b429e7933ce6065b5e7&demo-title=Norui%20Minimal&demo-description=A%20minimal%20norui%20portfolio%20example%20built%20with%20NextJS%20and%20powered%20by%20Notion.&demo-url=https%3A%2F%2Fminimal-norui.vercel.app%2F)
-
 ## Links
 - [Demo Site](https://minimal-norui.vercel.app/)
 - [Documentation](https://jorenrui.notion.site/Minimal-Norui-168e69403f624b429e7933ce6065b5e7)
