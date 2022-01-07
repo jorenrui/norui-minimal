@@ -3,6 +3,8 @@ import { IRichText, textColor } from '@/lib/types/notion';
 import React from 'react';
 
 export function formatRichText(text: IRichText) {
+  if (!text) return null;
+
   const component = text.map((item) => {
     let content = <>{item.text.content}</>;
 

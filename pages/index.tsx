@@ -42,7 +42,7 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
     <Page className="flex items-center justify-center">
       <div className="p-4 flex flex-col justify-center gap-4 lg:flex-row">
         <div className="flex-1">
-          <Image alt={`${data.name}'s profile picture`} src={data.profile_picture} className="image grayscale" height={400} width={300} objectFit="cover" />
+          <Image alt={`${data.name?.[0]?.plain_text}'s profile picture`} src={data.profile_picture} className="image grayscale" height={400} width={300} objectFit="cover" />
         </div>
 
         <div className="flex-1 max-w-lg my-auto">
