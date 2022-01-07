@@ -35,7 +35,7 @@ export default async function handler(
       return ({
         ...result,
         [field]: types.includes('file')
-          ? record.properties.File.files[0].file.url
+          ? record.properties.File.files[0]?.file.url
           : record.properties.Value.rich_text,
       });
     }, {} as IINfo);

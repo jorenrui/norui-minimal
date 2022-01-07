@@ -1,6 +1,16 @@
 import { Page } from './Page';
+import { Loader } from './ui/Loader';
 
-export function ErrorPage() {
+interface IProps {
+  error?: any;
+}
+
+export function ErrorPage({ error }: IProps) {
+  if (error?.message.includes('NetworkError')) {
+    console.log(error);
+    return <Loader className="min-h-full" />;
+  }
+
   return (
     <Page className="min-h-full flex flex-col items-center justify-center">
       <h1 className="my-4 text-5xl font-bold font-serif text-gray-900">

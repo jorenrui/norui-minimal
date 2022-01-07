@@ -35,20 +35,35 @@ interface IProps {
 const Home: NextPage<IProps> = ({ data: initialData }) => {
   const { data, error } = useSWR<IINfo>('/api/info', fetcher, { fallbackData: initialData });
 
-  if (error) return <ErrorPage />;
+  if (error) return <ErrorPage error={error} />;
   if (!data) return <Loader className="min-h-full" />;
 
   return (
     <Page className="flex items-center justify-center">
       <div className="p-4 flex flex-col justify-center gap-4 lg:flex-row">
-        <div className="flex-1">
-          <Image alt={`${data.name?.[0]?.plain_text}'s profile picture`} src={data.profile_picture} className="image grayscale" height={400} width={300} objectFit="cover" />
-        </div>
+        {data.profile_picture && (
+          <div className="flex-1">
+            <Image
+              alt={`${data.name?.[0]?.plain_text}'s profile picture`}
+              src={data.profile_picture}
+              className="image grayscale"
+              height={400}
+              width={300}
+              objectFit="cover"
+            />
+          </div>
+        )}
 
         <div className="flex-1 max-w-lg my-auto">
-          <h1 className="my-2 text-5xl font-bold font-serif text-gray-900">{formatRichText(data.name)}</h1>
+          <h1 className="my-2 text-5xl font-bold font-serif text-gray-900">
+            {data.name ? formatRichText(data.name) : 'Hello 👋'}
+          </h1>
           <p className="my-1 text-sm text-gray-700">{formatRichText(data.headline)}</p>
-          <p className="my-4 text-base text-gray-900">{formatRichText(data.description)}</p>
+          {data.description && (
+            <p className="my-4 text-base text-gray-900">
+              {formatRichText(data.description)}
+            </p>
+          )}
 
           {Object.keys(data.links || {}).length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
@@ -57,8 +72,8 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
                 if (!content) return;
 
                 return (
-                  <li key={content.href}>
-                    <a href={link_description.toLowerCase() === 'email' ? `mailto:${content.plain_text}` : content.href || '#'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center underline underline-offset-2 decoration-2 text-gray-700 cursor-pointer">
+                  <li key={content.plain_text}>
+                    <a href={link_description.toLowerCase() === 'email' ? `mailto:${content.plain_text}` : content.plain_text || '#'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center underline underline-offset-2 decoration-2 text-gray-700 cursor-pointer">
                       {link_description}
                       <HiExternalLink className="ml-1 h-4 w-4" aria-hidden="true" />
                     </a>
@@ -68,9 +83,11 @@ const Home: NextPage<IProps> = ({ data: initialData }) => {
             </ul>
           )}
 
-          <p className="mt-12 text-sm text-gray-700">
-            {formatRichText(data.copyright)}
-          </p>
+          {data.copyright && (
+            <p className="mt-12 text-sm text-gray-700">
+              {formatRichText(data.copyright)}
+            </p>
+          )}
         </div>
       </div>
     </Page>
